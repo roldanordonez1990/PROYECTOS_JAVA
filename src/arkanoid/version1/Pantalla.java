@@ -34,6 +34,7 @@ public class Pantalla extends Canvas {
 	Pelota ball = null;
 	Nave nave = null;
 
+	//holaaaaaaaaaaaaaa
 	// variable booleana para la segunda fase
 	private boolean finDeFase = false;
 
