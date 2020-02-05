@@ -34,7 +34,7 @@ public class Pantalla extends Canvas {
 	Pelota ball = null;
 	Nave nave = null;
 
-	//holaaaaaaaaaaaaaa
+	// holaaaaaaaaaaaaaa
 	// variable booleana para la segunda fase
 	private boolean finDeFase = false;
 
@@ -160,22 +160,18 @@ public class Pantalla extends Canvas {
 		// Obtengo el objeto gráfico que me permita pintar en el doble búffer
 		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 		// El rectángulo que estamos pintamos tiene las mismas dimensiones que el Canvas
+
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		// BufferedImage nave = loadImage("../res/nave-50x15.png");
 		// g.drawImage(nave, 185, 485, this);
 		// Ladrillo.getInstance().paint(g);
 
-		finDeFase = true;
 		for (Objeto actores : actors) {
 			actores.paint(g);
 
-			if (actores instanceof Ladrillo) {
-				finDeFase = false;
-			}
-			
 		}
-		
+
 		// Pinto la barra de estado, lo que necesito conocer el alto del juego
 		YforStatusBar = this.getHeight() - 22; // le doy la altura del camvas - 12 para dejarl las vidas abajo a la
 												// izquierda
@@ -212,17 +208,11 @@ public class Pantalla extends Canvas {
 			// Calculo el tiempo que se ha tardado en la ejecución
 			usedTime = System.currentTimeMillis() - startTime;
 
-			
 			// Con esta condición le indicamos a la bola que cuando salga del Canvas por
 			// abajo, actúe el método de restar vidas y reiniciar la bola
 			if (getBall().getCoordY() > Pantalla.getInstance().JFRAME_HEIGHT) {
 				restarVida();
 
-			}
-			
-			if (finDeFase = true) {
-				Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
-				//segundaFase();
 			}
 
 			// System.out.println(usedTime);
@@ -247,16 +237,16 @@ public class Pantalla extends Canvas {
 	public void primeraFase() {
 		int posX = 7;
 		int posy = 0;
-		for (int i = 0; i <= 11; i++) {
-			Ladrillo ladrillo = new Ladrillo();
-			ladrillo.getColores();
-			ladrillo.setCoordX(posX);
-			ladrillo.setCoordY(posY);
-			// Añadimos los ladrillos a la lista de objetos para que aparezcan
-			actors.add(ladrillo);
-			posX += ladrillo.getWidth() + 6;
-
-		}
+//		for (int i = 0; i <= 11; i++) {
+//			Ladrillo ladrillo = new Ladrillo();
+//			ladrillo.getColores();
+//			ladrillo.setCoordX(posX);
+//			ladrillo.setCoordY(posY);
+//			// Añadimos los ladrillos a la lista de objetos para que aparezcan
+//			actors.add(ladrillo);
+//			posX += ladrillo.getWidth() + 6;
+//
+//		}
 		posX = 7;
 		posY = 35;
 		for (int i = 0; i <= 11; i++) {
@@ -267,31 +257,32 @@ public class Pantalla extends Canvas {
 			actors.add(ladrillo);
 			posX += ladrillo.getWidth() + 6;
 		}
-		posX = 7;
-		posY = 70;
-		for (int i = 0; i <= 11; i++) {
-			Ladrillo ladrillo = new Ladrillo();
-			ladrillo.getColores();
-			ladrillo.setCoordX(posX);
-			ladrillo.setCoordY(posY);
-			actors.add(ladrillo);
-			posX += ladrillo.getWidth() + 6;
-		}
-		posX = 7;
-		posY = 105;
-		for (int i = 0; i <= 11; i++) {
-			Ladrillo ladrillo = new Ladrillo();
-			ladrillo.getColores();
-			ladrillo.setCoordX(posX);
-			ladrillo.setCoordY(posY);
-			actors.add(ladrillo);
-			posX += ladrillo.getWidth() + 6;
-		}
+//		posX = 7;
+//		posY = 70;
+//		for (int i = 0; i <= 11; i++) {
+//			Ladrillo ladrillo = new Ladrillo();
+//			ladrillo.getColores();
+//			ladrillo.setCoordX(posX);
+//			ladrillo.setCoordY(posY);
+//			actors.add(ladrillo);
+//			posX += ladrillo.getWidth() + 6;
+//		}
+//		posX = 7;
+//		posY = 105;
+//		for (int i = 0; i <= 11; i++) {
+//			Ladrillo ladrillo = new Ladrillo();
+//			ladrillo.getColores();
+//			ladrillo.setCoordX(posX);
+//			ladrillo.setCoordY(posY);
+//			actors.add(ladrillo);
+//			posX += ladrillo.getWidth() + 6;
+//		}
 	}
 
 	public void initWorld() {
 
 		primeraFase();
+		
 
 		ball = new Pelota();
 		// Añadimos la bola a la lista de objetos para que aparezca
@@ -301,10 +292,6 @@ public class Pantalla extends Canvas {
 		nave.setCoordY(485);
 		// Añadimos la nave a la lista de objetos para que aparezca
 		actors.add(nave);
-
-		if (finDeFase == true) {
-			segundaFase();
-		}
 
 		// actors.add(nave);
 		// Agrego a la lista de jugadores al actor de tipo Player
@@ -396,9 +383,19 @@ public class Pantalla extends Canvas {
 		// Aquí van a aparecer todos los movimientos que tengan cada uno de los actores.
 		// Todos con su método actor propio
 		for (Objeto actores : this.actors) {
-			actores.actor();
-
+			actores.actor();			
 		}
+		
+		if (actors.size() > 2) {
+			finDeFase = false;
+			System.out.println("PRIMERA FASE");
+		}else {
+		
+			finDeFase = true;
+			segundaFase();
+			System.out.println("SEGUNDA FASE");
+		}
+		
 
 		// Una vez que cada actor ha actuado, intento detectar colisiones entre los
 		// actores y notificarlas. Para detectar
