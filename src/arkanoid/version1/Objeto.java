@@ -20,6 +20,7 @@ public abstract class Objeto {
 	protected boolean markedForRemoval = false; // Pondremos a true esta bandera cuando el actor deba ser eliminado de la siguiente iteración del juego
 	protected int unidadDeTiempo = 0; // La unidad de tiempo aumenta cada vez que se llama al método "act()" del Actor
 	protected BufferedImage image;
+	protected int dureza = 0;
 
 	protected List<BufferedImage> spriteNames = new ArrayList<BufferedImage>(); // Lista de archivos de imagen utilizado para representarse en panta el siguiente sprite del actor 
 
@@ -205,6 +206,16 @@ public abstract class Objeto {
 
 	public void setImage(BufferedImage image) {
 		this.image = image;
+	}
+	
+	
+
+	public int getDureza() {
+		return dureza;
+	}
+
+	public void setDureza(int dureza) {
+		this.dureza = dureza;
 	}
 
 	public boolean isMarkedForRemoval() {

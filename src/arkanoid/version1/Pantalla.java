@@ -3,6 +3,7 @@ package arkanoid.version1;
 import java.awt.BorderLayout;
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
@@ -34,7 +35,6 @@ public class Pantalla extends Canvas {
 	Pelota ball = null;
 	Nave nave = null;
 
-	// holaaaaaaaaaaaaaa
 	// variable booleana para la segunda fase
 	private boolean finDeFase = false;
 
@@ -44,8 +44,9 @@ public class Pantalla extends Canvas {
 	private int YforStatusBar = 0;
 
 	// Lista de colores
-	public static Color[] COLORES = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.PINK,
-			Color.ORANGE, Color.WHITE, Color.CYAN, Color.MAGENTA };
+//	public static Color[] COLORES = new Color[] { Color.RED, Color.BLUE, Color.GREEN, Color.YELLOW, Color.PINK,
+//			Color.ORANGE, Color.WHITE, Color.CYAN, Color.MAGENTA };
+	public static Color color = null;
 
 	private long usedTime; // Tiempo usado en cada iteración del bucle principal del juego
 	// Velocidad de los fotogramas, en concreto este indica que el proceso de
@@ -161,6 +162,8 @@ public class Pantalla extends Canvas {
 		Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
 		// El rectángulo que estamos pintamos tiene las mismas dimensiones que el Canvas
 
+		//BufferedImage fondo = SpritesRepository.getInstance().getSprite(SpritesRepository.FONDO);
+		//g.drawImage(SpritesRepository.getInstance().getSprite(SpritesRepository.FONDO),0,0,this);
 		g.setColor(Color.BLACK);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		// BufferedImage nave = loadImage("../res/nave-50x15.png");
@@ -184,9 +187,16 @@ public class Pantalla extends Canvas {
 
 		}
 
+		this.pintaTexto(g);
 		// Muestro la imagen de búffer que acabo de crear
 		strategy.show();
 
+	}
+	
+	public void pintaTexto(Graphics2D g) {
+		g.setFont(new Font ("Arial", Font.BOLD,18));
+		g.setPaint(Color.WHITE);
+		g.drawString("Arkanoid", 360, 520);
 	}
 
 	/**
@@ -237,33 +247,37 @@ public class Pantalla extends Canvas {
 	public void primeraFase() {
 		int posX = 7;
 		int posy = 0;
-//		for (int i = 0; i <= 11; i++) {
-//			Ladrillo ladrillo = new Ladrillo();
-//			ladrillo.getColores();
-//			ladrillo.setCoordX(posX);
-//			ladrillo.setCoordY(posY);
-//			// Añadimos los ladrillos a la lista de objetos para que aparezcan
-//			actors.add(ladrillo);
-//			posX += ladrillo.getWidth() + 6;
-//
-//		}
-		posX = 7;
-		posY = 35;
-		for (int i = 0; i <= 11; i++) {
+		for (int i = 0; i <= 1; i++) {
 			Ladrillo ladrillo = new Ladrillo();
-			ladrillo.getColores();
+			ladrillo.setColor(Color.GREEN);
 			ladrillo.setCoordX(posX);
 			ladrillo.setCoordY(posY);
+			ladrillo.setDureza(1);
+			System.out.println(ladrillo.dureza);
+			// Añadimos los ladrillos a la lista de objetos para que aparezcan
 			actors.add(ladrillo);
 			posX += ladrillo.getWidth() + 6;
+
 		}
+//		posX = 7;
+//		posY = 35;
+//		for (int i = 0; i <= 11; i++) {
+//			Ladrillo ladrillo = new Ladrillo();
+//			ladrillo.setColor(Color.RED);
+//			ladrillo.setCoordX(posX);
+//			ladrillo.setCoordY(posY);
+//			ladrillo.setDureza(1);
+//			actors.add(ladrillo);
+//			posX += ladrillo.getWidth() + 6;
+//		}
 //		posX = 7;
 //		posY = 70;
 //		for (int i = 0; i <= 11; i++) {
 //			Ladrillo ladrillo = new Ladrillo();
-//			ladrillo.getColores();
+//			ladrillo.setColor(Color.BLUE);
 //			ladrillo.setCoordX(posX);
 //			ladrillo.setCoordY(posY);
+//			ladrillo.setDureza(1);
 //			actors.add(ladrillo);
 //			posX += ladrillo.getWidth() + 6;
 //		}
@@ -271,9 +285,10 @@ public class Pantalla extends Canvas {
 //		posY = 105;
 //		for (int i = 0; i <= 11; i++) {
 //			Ladrillo ladrillo = new Ladrillo();
-//			ladrillo.getColores();
+//			ladrillo.setColor(Color.YELLOW);
 //			ladrillo.setCoordX(posX);
 //			ladrillo.setCoordY(posY);
+//			ladrillo.setDureza(1);
 //			actors.add(ladrillo);
 //			posX += ladrillo.getWidth() + 6;
 //		}
@@ -282,7 +297,6 @@ public class Pantalla extends Canvas {
 	public void initWorld() {
 
 		primeraFase();
-		
 
 		ball = new Pelota();
 		// Añadimos la bola a la lista de objetos para que aparezca
@@ -311,10 +325,11 @@ public class Pantalla extends Canvas {
 		int posy = 0;
 		for (int i = 0; i <= 11; i++) {
 			Ladrillo ladrillo = new Ladrillo();
-			ladrillo.setColor(Color.RED);
+			ladrillo.setColor(Color.GRAY);
 			ladrillo.setCoordX(posX);
 			ladrillo.setCoordY(posY);
 			// Añadimos los ladrillos a la lista de objetos para que aparezcan
+			ladrillo.setDureza(2);
 			actors.add(ladrillo);
 			posX += ladrillo.getWidth() + 6;
 
@@ -323,9 +338,10 @@ public class Pantalla extends Canvas {
 		posY = 35;
 		for (int i = 0; i <= 11; i++) {
 			Ladrillo ladrillo = new Ladrillo();
-			ladrillo.setColor(Color.RED);
+			ladrillo.setColor(Color.ORANGE);
 			ladrillo.setCoordX(posX);
 			ladrillo.setCoordY(posY);
+			ladrillo.setDureza(1);
 			actors.add(ladrillo);
 			posX += ladrillo.getWidth() + 6;
 		}
@@ -333,9 +349,10 @@ public class Pantalla extends Canvas {
 		posY = 70;
 		for (int i = 0; i <= 11; i++) {
 			Ladrillo ladrillo = new Ladrillo();
-			ladrillo.setColor(Color.RED);
+			ladrillo.setColor(Color.ORANGE);
 			ladrillo.setCoordX(posX);
 			ladrillo.setCoordY(posY);
+			ladrillo.setDureza(1);
 			actors.add(ladrillo);
 			posX += ladrillo.getWidth() + 6;
 		}
@@ -343,9 +360,10 @@ public class Pantalla extends Canvas {
 		posY = 105;
 		for (int i = 0; i <= 11; i++) {
 			Ladrillo ladrillo = new Ladrillo();
-			ladrillo.setColor(Color.RED);
+			ladrillo.setColor(Color.GRAY);
 			ladrillo.setCoordX(posX);
 			ladrillo.setCoordY(posY);
+			ladrillo.setDureza(2);
 			actors.add(ladrillo);
 			posX += ladrillo.getWidth() + 6;
 		}
@@ -383,19 +401,19 @@ public class Pantalla extends Canvas {
 		// Aquí van a aparecer todos los movimientos que tengan cada uno de los actores.
 		// Todos con su método actor propio
 		for (Objeto actores : this.actors) {
-			actores.actor();			
+			actores.actor();
 		}
-		
+
 		if (actors.size() > 2) {
 			finDeFase = false;
-			System.out.println("PRIMERA FASE");
-		}else {
-		
+
+		} else {
+
 			finDeFase = true;
 			segundaFase();
-			System.out.println("SEGUNDA FASE");
+			getBall().reiniciarMillis();
+
 		}
-		
 
 		// Una vez que cada actor ha actuado, intento detectar colisiones entre los
 		// actores y notificarlas. Para detectar

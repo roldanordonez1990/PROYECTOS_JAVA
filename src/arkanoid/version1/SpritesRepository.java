@@ -20,10 +20,16 @@ public class SpritesRepository {
 
 	// Carpeta en la que se encuentran los recursos: imágenes, sonidos, etc.
 	private static String RESOURCES_FOLDER = "../res/";
+	
+	public static String FONDO = "fondo.png";
 
 	/**
 	 * 
 	 */
+	
+	public SpritesRepository() {
+		this.getSprite(FONDO);
+	}
 
 	public static SpritesRepository getInstance() {
 

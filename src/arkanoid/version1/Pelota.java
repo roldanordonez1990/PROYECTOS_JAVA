@@ -26,7 +26,7 @@ public class Pelota extends Objeto implements KeyListener, MouseListener {
 	private long millisEnInicio = 0; // inicio del tiempo en millisegundos
 	private float distanciaSiguienteFrame = 5; // distancia en px al siguiente punto que va a marcar la velocidad
 	private float aceleracion = 1.03f; // aceleración de la bola
-	private static int MAX_VELOCIDAD = 11; // límite de velocidad para que no pase de ahí
+	private static int MAX_VELOCIDAD = 8; // límite de velocidad para que no pase de ahí
 	
 
 	// Usamos un patrón singleton para poder llamar a este objeto desde cualquier
