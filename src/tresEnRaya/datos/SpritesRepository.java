@@ -24,7 +24,7 @@ public class SpritesRepository {
 	private static String RESOURCES_FOLDER = "../sources/images/";
 	
 	// Recursos de imagen que puede utilizarse en el juego
-	public static String IMAGEN_JUGADOR_1 = "batman.jpg";
+	public static String IMAGEN_JUGADOR_1 = "batman1.png";
 	public static String IMAGEN_JUGADOR_2 = "joker.png";
 
 	
