@@ -48,6 +48,28 @@ public class Ejercicio2 {
 		
 	}
 	
+	public static void calcularMaxLocales() {
+		float x = 0;
+		
+		float xAnterior = 0;
+		float xPosterior = 0;
+		int contador = 0;
+		
+		do {
+			
+			if(x * Math.sin(x) > xAnterior * Math.sin(xAnterior) && x * Math.sin(x) > xPosterior * Math.sin(xPosterior)){
+				
+				System.out.println(x + " será un máximo");
+				contador++;
+			}
+			
+			x += 0.01f;
+			xAnterior = x - 0.01f;
+			xPosterior = x + 0.01f;
+			
+		} while (!(contador == 5));
+	}
+	
 	public static void ejemplos() {
 		System.out.println("Valor del número PI: " + Math.PI);
 		System.out.println("El valor máximo es: " + Math.max(23, 23.5));
@@ -60,7 +82,8 @@ public class Ejercicio2 {
 		//puntoDeCorte();
 		//aproximarNumeroPi();
 		//ejemplos();
-		hipotenusa();
+		//hipotenusa();
+		calcularMaxLocales();
 		
 	}
 
