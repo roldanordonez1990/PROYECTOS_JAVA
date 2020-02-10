@@ -85,6 +85,7 @@ public class Ejercicios_Wrappers {
 		boolean digito = false;
 		boolean noAlfanumerico = false;
 		int i;
+		int intentos = 0;
 
 		//Hacemos un Do While indicando que mientras los requisitos no sean true, vuelva a repetir la contraseña
 		do {
@@ -118,7 +119,7 @@ public class Ejercicios_Wrappers {
 
 			}
 			//si se han introducido los datos requeridos, la contraseña es correcta
-			if (mayuscula && minuscula && digito && noAlfanumerico) {
+			if (mayuscula && minuscula && digito && noAlfanumerico && intentos < 4) {
 				JOptionPane.showMessageDialog(null, "CORRECTOO");
 				System.out.println("Correcto, la contraseña es: " + srt);
 				
@@ -126,6 +127,11 @@ public class Ejercicios_Wrappers {
 			else {
 				srt = JOptionPane.showInputDialog("ERROR\nIntroduce una contraseña que contenga: "
 						+ "\n-Una mayúscula\n-Una minúscula\n-Un dígito\n-Un caracter no alfanumérico");
+				intentos++;
+			}
+			if (intentos == 4) {
+				JOptionPane.showMessageDialog(null, "HAS BLOQUEADO LA CUENTA, PAYASO");
+				break;
 			}
 
 		} while (!(mayuscula && minuscula && digito && noAlfanumerico));
@@ -140,16 +146,13 @@ public class Ejercicios_Wrappers {
 			System.out.println(Integer.toHexString(i));
 		}
 		
-		
-		
 	}
-	
 	
 
 	public static void main(String[] args) {
 		// ejercicio01();
-		//contrasena();
-		hexadecimal();
+		contrasena();
+		//hexadecimal();
 
 	}
 
