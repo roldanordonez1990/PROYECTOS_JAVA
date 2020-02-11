@@ -6,21 +6,17 @@ import javax.swing.JOptionPane;
 
 public class PeticionNumeros {
 	
-	public static void pideNumeroPar() throws NumParException{
+	public static int pideNumeroPar() throws NumParException{
 		
 		Integer numeroPar = new Integer(JOptionPane.showInputDialog("Introduce un número par"));
 		
-		try {
-			if(numeroPar%2 != 0) {
-				
-				throw new NumParException("El número es impar");
-				
-			}
-			
-			
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
+		if(numeroPar % 2 == 0) {
+			System.out.println("El número es PAR");
+			return numeroPar;
+		}
+		
+		else {
+			throw new NumParException("El número es IMPAR");
 			
 		}
 		
