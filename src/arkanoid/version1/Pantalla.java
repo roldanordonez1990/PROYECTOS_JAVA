@@ -247,7 +247,7 @@ public class Pantalla extends Canvas {
 	public void primeraFase() {
 		int posX = 7;
 		int posy = 0;
-		for (int i = 0; i <= 11; i++) {
+		for (int i = 0; i <= 1; i++) {
 			Ladrillo ladrillo = new Ladrillo();
 			ladrillo.setColor(Color.GREEN);
 			ladrillo.setCoordX(posX);
