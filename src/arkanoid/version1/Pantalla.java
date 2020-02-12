@@ -164,7 +164,8 @@ public class Pantalla extends Canvas {
 
 		//BufferedImage fondo = SpritesRepository.getInstance().getSprite(SpritesRepository.FONDO);
 		//g.drawImage(SpritesRepository.getInstance().getSprite(SpritesRepository.FONDO),0,0,this);
-		g.setColor(Color.BLACK);
+		g.drawImage(SpritesRepository.getInstance().getSprite(SpritesRepository.getProperty("FONDO")), 0,0, JFRAME_HEIGHT, JFRAME_WIDTH, this);
+		//g.setColor(Color.BLACK);
 		g.fillRect(0, 0, this.getWidth(), this.getHeight());
 		// BufferedImage nave = loadImage("../res/nave-50x15.png");
 		// g.drawImage(nave, 185, 485, this);

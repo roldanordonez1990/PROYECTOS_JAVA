@@ -1,10 +1,17 @@
 package arkanoid.version1;
 
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.Properties;
 
 import javax.imageio.ImageIO;
+
+import tema6_recursos.bloque6_ficheros_de_propiedades.Fichero;
 
 public class SpritesRepository {
 
@@ -22,6 +29,7 @@ public class SpritesRepository {
 	private static String RESOURCES_FOLDER = "../res/";
 	
 	public static String FONDO = "fondo.png";
+	private static Properties propiedades = null;
 
 	/**
 	 * 
@@ -89,5 +97,72 @@ public class SpritesRepository {
 		}
 		return img;
 	}
+	
+	private static Properties getPropiedades() {
+		if (propiedades == null) {
+			propiedades = new Properties();
+		    
+			try {
+				// Una forma de leer el fichero de propiedades
+//				propiedades.load(propiedades.getClass().getResourceAsStream("/tutorialJava/capitulo6_Recursos/ejemplo.properties"));
+
+				// Otra forma de leer el fichero de propiedades
+				File file = new File("./src/arkanoid/version1/ejemplo.properties");
+				System.out.println("Fichero encontrado: " + file.exists());
+				propiedades.load(new FileReader(file));
+			
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			 
+		}
+		return propiedades;
+	}
+	/**
+	 * 
+	 * @param nombrePropiedad
+	 * @return
+	 */
+	public static String getProperty(String nombrePropiedad) {
+		return getPropiedades().getProperty(nombrePropiedad);
+	}
+
+	
+	/**
+	 * 
+	 * @param nombrePropiedad
+	 * @return
+	 */
+	public static int getIntProperty (String nombrePropiedad) {
+		return Integer.parseInt(getPropiedades().getProperty(nombrePropiedad));
+	}
+	
+	
+	/**
+	 * 
+	 * @param nombrePropiedad
+	 * @return
+	 */
+	public static Float getFloatProperty (String nombrePropiedad) {
+		return Float.parseFloat(getPropiedades().getProperty(nombrePropiedad));
+	}
+	
+	
+	/**
+	 * 
+	 * @param args
+	 */
+	
+	public static void main(String[] args) {
+		String fondo = Fichero.getProperty("FONDO");
+		
+		
+		System.out.println("imagen de fondo encontrada: " + fondo);
+		
+	}
+
 
 }
