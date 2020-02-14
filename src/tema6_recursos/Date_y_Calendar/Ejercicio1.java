@@ -15,23 +15,23 @@ public class Ejercicio1 {
 			//creamos un Date y lo inicializamos a null para luego obtener el resultado deseado
 			private static Date fechaApartirDeCalendario = null;
 			
-//	public static void fecha() {
-//		
-//		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-//		Date fecha = null;
-//		
-//		try {
-//			//introducimos una decha de tipo String
-//			fecha = sdf.parse(JOptionPane.showInputDialog("Escribe una fecha"));
-//		} catch (ParseException e) {
-//			System.out.println("Error al escribir la fecha parseada");
-//			e.printStackTrace();
-//			// TODO: handle exception
-//		}
-//		//formateamos la fecha al formato que hemos especificado arriba ("dd/MM/yyyy HH:mm:ss")
-//		System.out.println("La fecha que hemos escrito es: " + sdf.format(fecha));
-//		
-//	}
+	public static void fecha() {
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+		Date fecha = null;
+		
+		try {
+			//introducimos una decha de tipo String
+			fecha = sdf.parse(JOptionPane.showInputDialog("Escribe una fecha"));
+		} catch (ParseException e) {
+			System.out.println("Error al escribir la fecha parseada");
+			e.printStackTrace();
+			// TODO: handle exception
+		}
+		//formateamos la fecha al formato que hemos especificado arriba ("dd/MM/yyyy HH:mm:ss")
+		System.out.println("La fecha que hemos escrito es: " + sdf.format(fecha));
+		
+	}
 	
 	public static void calendar() {
 		
@@ -92,10 +92,10 @@ public class Ejercicio1 {
 	
 	public static void main(String[] args) {
 		
-		//fecha();
-		calendar();
-		fechasPorSeparado();
-		nuevasFechas();
+		fecha();
+		//calendar();
+		//fechasPorSeparado();
+		//nuevasFechas();
 	}
 
 }
