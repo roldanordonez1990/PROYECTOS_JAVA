@@ -24,7 +24,7 @@ public class PrimerEjercicio_bbdd_Coches {
 			
 			// La ejecución de la consulta se realiza a través del objeto Statement y se recibe en forma de objeto
 			// de tipo ResultSet, que puede ser navegado para descubrir todos los registros obtenidos por la consulta
-			ResultSet rs = s.executeQuery ("select * from cliente");
+			ResultSet rs = s.executeQuery ("select * from fabricante");
 		   
 			// Navegación del objeto ResultSet
 			while (rs.next()) { 
