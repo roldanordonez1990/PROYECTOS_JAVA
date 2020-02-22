@@ -9,13 +9,14 @@ import java.util.Scanner;
 import tema7_Acceso_A_Datos.ImposibleConectarException;
 
 public class GestionFabricante {
-	//Iniciaremos el objeto de conexión a null para poder usarlo cuando queramos
+	// Iniciaremos el objeto de conexión a null para poder usarlo cuando queramos
 	static Connection conn = null;
 
 	public static void menuGestionFabricantes(Connection conn) throws SQLException {
-		//Al acceder a este menú, lo primero que se hará es intentar conectar con la BBDD
+		// Al acceder a este menú, lo primero que se hará es intentar conectar con la
+		// BBDD
 		try {
-			//Aquí le daremos valor al objeto con la clase que conecta a la bbdd
+			// Aquí le daremos valor al objeto con la clase que conecta a la bbdd
 			conn = ConnectionManagerV2.getConexion();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -47,9 +48,9 @@ public class GestionFabricante {
 			case 1:
 				listadoDeFabricante(conn);
 				break;
-//			case 2: 
-//				alta();
-//				break;
+			case 2:
+				crearDatosFabricante(conn);
+				break;
 //			case 3: 
 //				modificacion();
 //				break;
@@ -77,11 +78,42 @@ public class GestionFabricante {
 		// obtenidos por la consulta
 		ResultSet rs = s.executeQuery("select * from fabricante");
 
-		// Navegación del objeto ResultSet. Los get son el número de columnas que tiene cada tabla
+		// Navegación del objeto ResultSet. Los get son el número de columnas que tiene
+		// cada tabla
 		while (rs.next()) {
 			System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3));
 
 		}
+	}
+
+	public static void crearDatosFabricante(Connection conn) throws SQLException {
+		//Ejecutamos la consulta
+		Statement s = (Statement) conn.createStatement();
+		
+		Scanner sc = new Scanner(System.in);
+		//Creamos el objeto scanner e introducimos los datos que queramos en cada campo
+		System.out.println("\n\tIntroduce un ID");
+		int id;
+		id = sc.nextInt();
+		//
+		System.out.println("\n\tIntroduce un CIF");
+		String cif = sc.next();
+		//
+		System.out.println("\n\tIntroduce un Nombre");
+		String nombre = sc.next();
+		//Introducimos valores con INSERT INTO, como en sql
+		String sql = "INSERT INTO tutorialjavacoches.fabricante (id, cif, nombre) " + 
+							"VALUES  (" + id + ", '" + cif + "', '" + nombre + "')";
+		//para la modificación(Update)
+		s.executeUpdate(sql);
+		
+		s.close();
+
+	}
+	
+	public static void modificacionFabricante(Connection conn) throws SQLException {
+		
+		
 	}
 
 }
