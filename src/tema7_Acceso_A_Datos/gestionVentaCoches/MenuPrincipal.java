@@ -29,6 +29,7 @@ public class MenuPrincipal {
 			System.out.println("\t5.- Gestión de ___________.");
 			System.out.println("\t0.- Salir");
 			System.out.println("\n\tElija una opción: ");
+			
 			opcionElegida = sc.nextInt();
 			
 			switch (opcionElegida) {
