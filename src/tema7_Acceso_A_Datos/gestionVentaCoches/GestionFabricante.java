@@ -7,7 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Scanner;
 
-import tema7_Acceso_A_Datos.ImposibleConectarException;
+import tema7_Acceso_A_Datos.gestionVentaCoches.modelo.controladores.ConnectionManagerV2;
+import tema7_Acceso_A_Datos.gestionVentaCoches.modelo.controladores.ImposibleConectarException;
 
 public class GestionFabricante {
 	// Iniciaremos el objeto de conexión a null para poder usarlo cuando queramos
@@ -168,7 +169,7 @@ public class GestionFabricante {
 
 		System.out.println("Escribe un id que aparezca en la tabla");
 
-		int escribeId = sc.nextInt();
+		int escribeId= sc.nextInt();
 		boolean correcto = true;
 
 		do {

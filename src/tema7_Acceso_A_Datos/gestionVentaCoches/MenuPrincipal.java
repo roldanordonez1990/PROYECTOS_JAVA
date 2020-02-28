@@ -4,13 +4,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import tema7_Acceso_A_Datos.ImposibleConectarException;
+import tema7_Acceso_A_Datos.gestionVentaCoches.modelo.controladores.ControladorBBDD;
+import tema7_Acceso_A_Datos.gestionVentaCoches.modelo.controladores.ErrorBBDDException;
 
 public class MenuPrincipal {
 	
 	static Connection conn = null;
 
-	public static void menuPrincipal() throws SQLException {
+	public static void menuPrincipal() throws SQLException, ErrorBBDDException {
 
 		//creamos un objeto escanner donde vamos a guardar lo que introduzcamos
 		Scanner sc = new Scanner(System.in);
@@ -23,7 +24,7 @@ public class MenuPrincipal {
 			System.out.println("\n\t\t\tGESTIÓN DE VENTAS DE COCHES");
 
 			System.out.println("\n\t1.- Gestión de fabricantes.");
-			System.out.println("\t2.- Gestión de ___________.");
+			System.out.println("\t2.- Gestión de concesionarios.");
 			System.out.println("\t3.- Gestión de ___________.");
 			System.out.println("\t4.- Gestión de ___________.");
 			System.out.println("\t5.- Gestión de ___________.");
@@ -40,8 +41,14 @@ public class MenuPrincipal {
 			case 1:
 				//Al pulsar 1, accederemos al siguiente menú de fabricantes
 				GestionFabricante.menuGestionFabricantes(conn);
+				break;
 				
+			case 2:
+				GestionConcesionario.menuGestionConcesionario();
+				break;
 			}
+			
+				
 
 		} while (opcionElegida != 0);
 
@@ -50,8 +57,16 @@ public class MenuPrincipal {
 
 
 	public static void main(String[] args) throws SQLException {
-		
-		menuPrincipal();
+		ControladorBBDD.iniciaConnectionPool();
+		try {
+			menuPrincipal();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ErrorBBDDException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 
 	}

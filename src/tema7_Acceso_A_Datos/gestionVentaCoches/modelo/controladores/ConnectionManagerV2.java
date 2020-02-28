@@ -1,4 +1,4 @@
-package tema7_Acceso_A_Datos.gestionVentaCoches;
+package tema7_Acceso_A_Datos.gestionVentaCoches.modelo.controladores;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import oracle.ucp.jdbc.PoolDataSource;
 import oracle.ucp.jdbc.PoolDataSourceFactory;
-import tema7_Acceso_A_Datos.ImposibleConectarException;
+import tema7_Acceso_A_Datos.gestionVentaCoches.JDBCPropiedades;
 
     
 public class ConnectionManagerV2 {

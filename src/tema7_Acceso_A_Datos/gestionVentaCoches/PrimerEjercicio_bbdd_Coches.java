@@ -1,4 +1,4 @@
-package tema7_Acceso_A_Datos;
+package tema7_Acceso_A_Datos.gestionVentaCoches;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
