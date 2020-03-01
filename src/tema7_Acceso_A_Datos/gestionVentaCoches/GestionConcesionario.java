@@ -37,7 +37,7 @@ public class GestionConcesionario {
 
 			System.out.println("\n\t1.- Listado de concesionario.");
 			System.out.println("\t2.- Añadir concesionario.");
-			System.out.println("\t3.- Optener un id.");
+			System.out.println("\t3.- Modificar concesionario.");
 			System.out.println("\t4.- Borrar concesionario.");
 			System.out.println("\t0.- Salir");
 			System.out.println("\n\tElija una opción: ");
@@ -54,9 +54,9 @@ public class GestionConcesionario {
 			case 2:
 				darDeAlta();
 				break;
-//			case 3:
-//				obtenerId(conn);
-//				break;
+			case 3:
+				modificar();
+				break;
 			case 4:
 				baja();
 				break;
@@ -93,11 +93,11 @@ public class GestionConcesionario {
 		Scanner sc = new Scanner(System.in);
 		
 		Concesionario conce = new Concesionario();
-		System.out.print("\nIntroduzca 'CIF' del fabricante: ");
+		System.out.print("\nIntroduzca 'CIF' del concesionario: ");
 		conce.setCif(sc.next());
-		System.out.print("\nIntroduzca 'Nombre' del fabricante: ");
+		System.out.print("\nIntroduzca 'Nombre' del concesionario: ");
 		conce.setNombre(sc.next());
-		System.out.print("\nIntroduzca 'Localidad' del fabricante: ");
+		System.out.print("\nIntroduzca 'Localidad' del concesionario: ");
 		conce.setLocalidad(sc.next());
 		
 		ControladorConcesionario.almacenarNuevo(conce);  
@@ -110,6 +110,43 @@ public class GestionConcesionario {
 	 * 
 	 * @throws ErrorBBDDException
 	 * @throws SQLException 
+	 */
+	public static void modificar() throws ErrorBBDDException, SQLException {
+		System.out.println("\n\tModificación del concesionario: ");
+		
+		Concesionario conce = seleccionPorUsuario();
+		
+		if(conce != null) {
+			System.out.println("\n\tIntroduce un CIF nuevo para el concesionario: ");
+			Scanner sc = new Scanner(System.in);
+			String cif;
+			cif = sc.next();
+			if(!cif.equals("")) 
+				conce.setCif(cif);
+			
+			System.out.println("\n\tIntroduce un Nombre nuevo para el concesionario: ");
+			String nombre;
+			nombre = sc.next();
+			if(!nombre.equals("")) 
+				conce.setNombre(nombre);
+			
+			System.out.println("\n\tIntroduce una Localidad nueva para el concesionario: ");
+			String localidad;
+			localidad = sc.next();
+			if(!localidad.equals("")) {
+				conce.setLocalidad(localidad);
+			}
+			
+			ControladorConcesionario.almacenarModificacion(conce);
+			System.out.println("\n\tHas modificado el concesionario correctamente");
+		}
+		
+	}
+	
+	/**
+	 * 
+	 * @throws ErrorBBDDException
+	 * @throws SQLException
 	 */
 	
 	private static void baja () throws ErrorBBDDException, SQLException {

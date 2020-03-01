@@ -101,6 +101,33 @@ public class ControladorConcesionario extends ControladorBBDD {
 			throw new ErrorBBDDException(e);
 		}
 	}
+	
+	public static void almacenarModificacion(Concesionario conce) throws ErrorBBDDException{
+		Connection conn = null;
+		
+		try {
+			conn = ConnectionManagerV2.getConexion();
+			
+			PreparedStatement ps = (PreparedStatement) conn.
+					prepareStatement("update concesionario set cif = ?, nombre = ?, localidad = ? where id = ?");
+			int registrosInsertados;
+			
+			ps.setString(1, conce.getCif());
+			ps.setString(2, conce.getNombre());
+			ps.setString(3, conce.getLocalidad());
+			ps.setInt(4, conce.getId()); 
+
+			registrosInsertados = ps.executeUpdate();
+			if (registrosInsertados != 1) {
+				throw new ErrorBBDDException ("No ha sido posible la modificación del registro");
+			}
+			ps.close();
+			
+		} catch (SQLException | ImposibleConectarException e) {			
+			throw new ErrorBBDDException(e);
+		}
+		
+	}
 		
 		/**
 		 * 
