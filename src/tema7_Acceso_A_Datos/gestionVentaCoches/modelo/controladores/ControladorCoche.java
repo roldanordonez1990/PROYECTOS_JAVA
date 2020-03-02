@@ -62,7 +62,7 @@ public class ControladorCoche extends ControladorBBDD {
 				coche.setId(id);
 				coche.setIdfabricante(rs.getInt("idfabricante"));
 				coche.setBastidor(rs.getString("bastidor"));
-				coche.setModelo(rs.getNString("modelo"));
+				coche.setModelo(rs.getString("modelo"));
 				coche.setColor(rs.getString("color"));
 				
 			}

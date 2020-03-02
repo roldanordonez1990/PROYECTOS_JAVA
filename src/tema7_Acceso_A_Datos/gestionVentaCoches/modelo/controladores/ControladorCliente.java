@@ -60,7 +60,7 @@ public class ControladorCliente extends ControladorBBDD{
 			conn = ConnectionManagerV2.getConexion();
 			
 			Statement s = conn.createStatement();
-			ResultSet rs = s.executeQuery("Select * cliente where id = " + id);
+			ResultSet rs = s.executeQuery("Select * from cliente where id = " + id);
 
 			if (rs.next()) {
 				cli = new Cliente();
@@ -115,6 +115,37 @@ public class ControladorCliente extends ControladorBBDD{
 	/**
 	 * 
 	 */
+	
+	public static void almacenarModificacion(Cliente cli) throws ErrorBBDDException{
+		Connection conn = null;
+		
+		try {
+			conn = ConnectionManagerV2.getConexion();
+			
+			PreparedStatement ps = (PreparedStatement) conn.
+					prepareStatement("update cliente set nombre = ?, apellidos = ?, localidad = ?, dniNie = ?, fechaNac = ? where id = ?");
+			int registrosInsertados;
+			
+			ps.setString(1, cli.getNombre());
+			ps.setString(2, cli.getApellidos());
+			ps.setString(3, cli.getLocalidad());
+			ps.setString(4, cli.getDniNie());
+			ps.setString(5, cli.getFechaNac()); 
+			ps.setInt(6, cli.getId());
+			
+			
+
+			registrosInsertados = ps.executeUpdate();
+			if (registrosInsertados != 1) {
+				throw new ErrorBBDDException ("No ha sido posible la modificación del registro");
+			}
+			ps.close();
+			
+		} catch (SQLException | ImposibleConectarException e) {			
+			throw new ErrorBBDDException(e);
+		}
+		
+	}
 	
 	public static void eliminarCliente (Cliente cli) throws ErrorBBDDException {
 

@@ -49,9 +49,9 @@ public class GestonCliente {
 				case 2:
 					darDeAlta();
 					break;
-//				case 3:
-//					modificar();
-//					break;
+				case 3:
+					modificar();
+					break;
 				case 4:
 					baja();
 					break;
@@ -112,6 +112,61 @@ public class GestonCliente {
 		/**
 		 * @throws ParseException 
 		 * 
+		 */
+		
+		public static void modificar() throws ErrorBBDDException, SQLException, ParseException {
+			System.out.println("\n\tModificación del coche: ");
+			
+			Cliente cli = seleccionPorUsuario();
+			
+			if(cli != null) {
+				
+				System.out.println("\n\tIntroduce un 'Nombre' nuevo para el cliente: ");
+				Scanner sc = new Scanner(System.in);
+				String nombre;
+				nombre = sc.next();
+				if(!nombre.equals("")) 
+					cli.setNombre(nombre);
+				
+				
+				System.out.println("\n\tIntroduce un 'Apellido' nuevo para el cliente: ");
+				sc = new Scanner(System.in);
+				String apellido;
+				apellido = sc.next();
+				if(!apellido.equals("")) 
+					cli.setApellidos(apellido);
+				
+				System.out.println("\n\tIntroduce un 'Localidad' nuevo para el cliente: ");
+				String localidad;
+				localidad = sc.next();
+				if(!localidad.equals("")) 
+					cli.setLocalidad(localidad);
+				
+				System.out.println("\n\tIntroduce un 'Dni' nuevo para el cliente: ");
+				String dni;
+				dni = sc.next();
+				if(!dni.equals("")) 
+					cli.setDniNie(dni);
+				
+				System.out.println("\n\tIntroduce una 'Fecha' nueva para el cliente: ");
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				String fecha;
+				fecha = sc.next();
+				if(!fecha.equals("")) {
+					cli.setFechaNac(sdf.parse(fecha));
+				}
+					
+				ControladorCliente.almacenarModificacion(cli);
+				System.out.println("\n\tHas modificado el coche correctamente");
+			}
+			
+		}
+		
+		/**
+		 * 
+		 * @throws ErrorBBDDException
+		 * @throws SQLException
+		 * @throws ParseException
 		 */
 		
 		private static void baja() throws ErrorBBDDException, SQLException, ParseException {
