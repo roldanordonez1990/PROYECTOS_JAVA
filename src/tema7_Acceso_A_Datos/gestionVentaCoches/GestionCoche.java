@@ -20,24 +20,13 @@ public class GestionCoche {
 	static Connection conn = null;
 
 	public static void menuGestionCoche() throws SQLException, ErrorBBDDException {
-//			// Al acceder a este menú, lo primero que se hará es intentar conectar con la
-//			// BBDD
-//			try {
-//				// Aquí le daremos valor al objeto con la clase que conecta con la bbdd
-//				conn = ConnectionManagerV2.getConexion();
-//			} catch (SQLException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (ImposibleConectarException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+
 		Scanner sc = new Scanner(System.in);
 		int option = 0;
 
 		do {
 
-			System.out.println("\n\t\t\tGESTIÓN DE FABRICANTES");
+			System.out.println("\n\t\t\tGESTIÓN DE COCHES");
 
 			System.out.println("\n\t1.- Listado de coches.");
 			System.out.println("\t2.- Añadir coche.");

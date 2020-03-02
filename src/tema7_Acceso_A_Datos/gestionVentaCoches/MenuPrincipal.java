@@ -2,6 +2,7 @@ package tema7_Acceso_A_Datos.gestionVentaCoches;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Scanner;
 
 import tema7_Acceso_A_Datos.gestionVentaCoches.modelo.controladores.ControladorBBDD;
@@ -11,7 +12,7 @@ public class MenuPrincipal {
 	
 	static Connection conn = null;
 
-	public static void menuPrincipal() throws SQLException, ErrorBBDDException {
+	public static void menuPrincipal() throws SQLException, ErrorBBDDException, ParseException {
 
 		//creamos un objeto escanner donde vamos a guardar lo que introduzcamos
 		Scanner sc = new Scanner(System.in);
@@ -26,8 +27,8 @@ public class MenuPrincipal {
 			System.out.println("\n\t1.- Gestión de fabricantes.");
 			System.out.println("\t2.- Gestión de concesionarios.");
 			System.out.println("\t3.- Gestión de coches.");
-			System.out.println("\t4.- Gestión de ___________.");
-			System.out.println("\t5.- Gestión de ___________.");
+			System.out.println("\t4.- Gestión de clientes.");
+			System.out.println("\t5.- Gestión de .");
 			System.out.println("\t0.- Salir");
 			System.out.println("\n\tElija una opción: ");
 			
@@ -49,6 +50,9 @@ public class MenuPrincipal {
 				
 			case 3:
 				GestionCoche.menuGestionCoche();
+				
+			case 4:
+				GestonCliente.menuGestionCliente();
 			}
 			
 				
@@ -59,7 +63,7 @@ public class MenuPrincipal {
 	
 
 
-	public static void main(String[] args) throws SQLException {
+	public static void main(String[] args) throws SQLException, ParseException {
 		ControladorBBDD.iniciaConnectionPool();
 		try {
 			menuPrincipal();
