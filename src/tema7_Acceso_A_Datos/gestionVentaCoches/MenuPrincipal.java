@@ -25,7 +25,7 @@ public class MenuPrincipal {
 
 			System.out.println("\n\t1.- Gestión de fabricantes.");
 			System.out.println("\t2.- Gestión de concesionarios.");
-			System.out.println("\t3.- Gestión de ___________.");
+			System.out.println("\t3.- Gestión de coches.");
 			System.out.println("\t4.- Gestión de ___________.");
 			System.out.println("\t5.- Gestión de ___________.");
 			System.out.println("\t0.- Salir");
@@ -40,12 +40,15 @@ public class MenuPrincipal {
 				
 			case 1:
 				//Al pulsar 1, accederemos al siguiente menú de fabricantes
-				GestionFabricante.menuGestionFabricantes(conn);
+				GestionFabricante.menuGestion();
 				break;
 				
 			case 2:
 				GestionConcesionario.menuGestionConcesionario();
 				break;
+				
+			case 3:
+				GestionCoche.menuGestionCoche();
 			}
 			
 				

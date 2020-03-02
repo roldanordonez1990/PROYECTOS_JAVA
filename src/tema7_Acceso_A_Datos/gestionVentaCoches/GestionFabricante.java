@@ -1,203 +1,168 @@
 package tema7_Acceso_A_Datos.gestionVentaCoches;
 
-import java.io.ObjectInputStream.GetField;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.Scanner;
+import java.util.List;
 
-import tema7_Acceso_A_Datos.gestionVentaCoches.modelo.controladores.ConnectionManagerV2;
-import tema7_Acceso_A_Datos.gestionVentaCoches.modelo.controladores.ImposibleConectarException;
+import tema7_Acceso_A_Datos.gestionVentaCoches.modelo.Fabricante;
+import tema7_Acceso_A_Datos.gestionVentaCoches.modelo.controladores.ControladorFabricante;
+import tema7_Acceso_A_Datos.gestionVentaCoches.modelo.controladores.ErrorBBDDException;
+
 
 public class GestionFabricante {
-	// Iniciaremos el objeto de conexión a null para poder usarlo cuando queramos
-	static Connection conn = null;
-
-	public static void menuGestionFabricantes(Connection conn) throws SQLException {
-		// Al acceder a este menú, lo primero que se hará es intentar conectar con la
-		// BBDD
-		try {
-			// Aquí le daremos valor al objeto con la clase que conecta con la bbdd
-			conn = ConnectionManagerV2.getConexion();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ImposibleConectarException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Scanner sc = new Scanner(System.in);
-		int option = 0;
-
-		do {
-
-			System.out.println("\n\t\t\tGESTIÓN DE FABRICANTES");
-
-			System.out.println("\n\t1.- Listado de fabricantes.");
-			System.out.println("\t2.- Añadir fabricante.");
-			System.out.println("\t3.- Optener un id.");
-			System.out.println("\t4.- Borrar fabricante.");
-			System.out.println("\t0.- Salir");
-			System.out.println("\n\tElija una opción: ");
-
-			option = sc.nextInt();
-
-			switch (option) {
-			case 0:
-				System.out.println("Adiós");
-				break;
-			case 1:
-				listadoDeFabricante(conn);
-				break;
-			case 2:
-				crearDatosFabricante(conn);
-				break;
-			case 3:
-				obtenerId(conn);
-				break;
-			case 4:
-				borradoDelFabricante(conn);
-				break;
-			}
-
-		} while (option != 0);
-	}
 
 	/**
 	 * 
-	 * @param pausafinal
+	 */
+	public static void menuGestion() {
+
+		int opcionElegida = -1;
+		do {
+			try {
+				System.out.println("\n\t\t\tGESTIÓN DE FABRICANTES");
+				
+				System.out.println("\n\t1.- Listado de fabricantes.");
+				System.out.println("\t2.- Alta de fabricante.");
+				System.out.println("\t3.- Modificación de fabricante.");
+				System.out.println("\t4.- Baja de fabricante.");
+				System.out.println("\t0.- Salir");
+				System.out.println("\n\tElija una opción: ");
+				
+				opcionElegida = Utils.getIntConsola(0, 4);
+				
+				switch (opcionElegida) {
+				case 0:
+					break;
+				case 1:
+					listado(true);
+					break;
+				case 2: 
+					alta();
+					break;
+				case 3: 
+					modificacion();
+					break;
+				case 4: 
+					baja();
+					break;
+				}
+			} catch (ErrorBBDDException e) {
+				System.out.println("\n\t\t\tError de acceso a datos: " + e.getMessage() + "\n");
+				e.printStackTrace();
+			}
+		} while (opcionElegida != 0);
+	}
+
+	
+	/**
+	 * 
 	 * @throws ErrorBBDDException
 	 */
+	public static void listado(boolean pausafinal) throws ErrorBBDDException {
+		List<Fabricante> fabricantes = ControladorFabricante.getAll();
+		System.out.println("\n\tListado de fabricantes: \n");
+		for (Fabricante fab : fabricantes) {
+			System.out.println("\t" + fab.toString());
+		}
+		if (pausafinal) {
+			System.out.println("\n\tPulse 'Intro' tecla para continuar");
+			Utils.pausa();
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * @throws ErrorBBDDException
+	 */
+	private static void alta () throws ErrorBBDDException {
+		System.out.println("\n\tAlta de fabricante\n");
+		
+		Fabricante fab = new Fabricante();
+		System.out.print("\nIntroduzca 'CIF' del fabricante: ");
+		fab.setCif(Utils.getStringConsola());
+		System.out.print("\nIntroduzca 'Nombre' del fabricante: ");
+		fab.setNombre(Utils.getStringConsola());
+		
+		ControladorFabricante.almacenar(fab);  
 
-	public static void listadoDeFabricante(Connection conn) throws SQLException {
-		// Para poder ejecutar una consulta necesitamos utilizar un objeto de tipo
-		// Statement
-		Statement s = (Statement) conn.createStatement();
-		// La ejecución de la consulta se realiza a través del objeto Statement y se
-		// recibe en forma de objeto
-		// de tipo ResultSet, que puede ser navegado para descubrir todos los registros
-		// obtenidos por la consulta
-		ResultSet rs = s.executeQuery("select * from fabricante");
+		System.out.println("\n\tInsertado correctamente!. Pulse 'Intro' para continuar");
+		Utils.pausa();
+	}
 
-		// Navegación del objeto ResultSet. Los get son el número de columnas que tiene
-		// cada tabla
-		while (rs.next()) {
-			System.out.println(rs.getInt("id") + " " + rs.getString(2) + " " + rs.getString(3));
 
+
+	/**
+	 * 
+	 * @throws ErrorBBDDException
+	 */
+	private static void modificacion () throws ErrorBBDDException {
+		System.out.println("\n\tModificación de fabricante\n");
+		
+		Fabricante fab = seleccionPorUsuario();
+		
+		if (fab != null) {		
+			System.out.print("\nIntroduzca 'CIF' del fabricante ('Intro' para no modificar): ");
+			String str = Utils.getStringConsola();
+			if (!str.equals("")) 
+				fab.setCif(str);
+			System.out.print("\nIntroduzca 'Nombre' del fabricante  ('Intro' para no modificar): ");
+			str = Utils.getStringConsola();
+			if (!str.equals("")) 
+				fab.setNombre(str);
+		
+			ControladorFabricante.almacenar(fab);  
+
+			System.out.println("\n\tModificado correctamente!. Pulse 'Intro' para continuar");
+			Utils.pausa();
 		}
 	}
 
-	public static void crearDatosFabricante(Connection conn) throws SQLException {
-		// Ejecutamos la consulta
-		Statement s = (Statement) conn.createStatement();
-
-		Scanner sc = new Scanner(System.in);
-		// Creamos el objeto scanner e introducimos los datos que queramos en cada campo
-		System.out.println("\n\tIntroduce un ID");
-		int id;
-		id = sc.nextInt();
+	
+	
+	/**
+	 * 
+	 * @throws ErrorBBDDException
+	 */
+	private static void baja () throws ErrorBBDDException {
+		System.out.println("\n\tModificación de fabricante\n");
 		
-		//pequeña parte de código para que no nos deje introducir un id que ya exista
-		boolean si = true;
-		do {
-
-			ResultSet rs = s.executeQuery("select id from tutorialjavacoches.fabricante order by id");
-			while (rs.next()) {
-				if (id == rs.getInt(1)) {
-					si = false;
-					System.out.println("\n\tEl id introducido ya existe, vuelve a introducir un id que no exista");
-					id = sc.nextInt();
-				}
-				if (id != rs.getInt(1)) {
-					si = true;
-				}
+		Fabricante fab = seleccionPorUsuario();
+		
+		if (fab != null) {		
+			System.out.print("\n¿Realmente desea eliminar el registro? (S/N): ");
+			String str = Utils.getStringConsola();
+			if (str.equalsIgnoreCase("S")) { 		 
+				ControladorFabricante.eliminar(fab);  
+				System.out.println("\n\tEliminado correctamente!. Pulse 'Intro' para continuar");
+				Utils.pausa();
 			}
-
-		} while (!si);
-		//
-		System.out.println("\n\tIntroduce un CIF");
-		String cif = sc.next();
-		//
-		System.out.println("\n\tIntroduce un Nombre");
-		String nombre = sc.next();
-		// Introducimos valores con INSERT INTO, como en sql
-		String sql = "INSERT INTO tutorialjavacoches.fabricante (id, cif, nombre) " + "VALUES  (" + id + ", '" + cif
-				+ "', '" + nombre + "')";
-		// para la modificación(Update)
-		s.executeUpdate(sql);
-
-		s.close();
-
+		}
 	}
 
+	
+	
 	/**
 	 * 
-	 * @param conn
-	 * @throws SQLException
+	 * @return
+	 * @throws ErrorBBDDException
 	 */
-	public static void borradoDelFabricante(Connection conn) throws SQLException {
-		// Ejecutamos la consulta
-		Statement s = (Statement) conn.createStatement();
-
-		// Nos pedirá que introduzcamos un id procedente del método obtenerId
-		// anteriormente creado
-		int id = obtenerId(conn);
-
-		// Hacemos la consulta con sql
-		String sql = "DELETE FROM tutorialjavacoches.fabricante WHERE id=" + id + ";";
-
-		// ejecutamos los cambios con Update
-		s.executeUpdate(sql);
-
-		System.out.println("El fabricante con id: " + id + " ha sido eliminado");
-
-		s.close();
-	}
-
-	/**
-	 * 
-	 */
-
-	public static int obtenerId(Connection conn) throws SQLException {
-		// Ejecutamos consulta y en este caso tenemos que tener el objeto resultset para
-		// que nos devuelva dicha consulta
-		Statement s = (Statement) conn.createStatement();
-		ResultSet rs;
-
-		Scanner sc = new Scanner(System.in);
-
-		System.out.println("Escribe un id que aparezca en la tabla");
-
-		int escribeId= sc.nextInt();
-		boolean correcto = true;
-
+	private static Fabricante seleccionPorUsuario () throws ErrorBBDDException {
+		Fabricante fab = null;
+		int id = -2;
 		do {
-			// hacemos la consulta. Queremos obtener el id de los fabricantes
-			rs = s.executeQuery("select id from tutorialjavacoches.fabricante order by id");
-
-			while (rs.next()) {
-				// Mientras haya id, nos dirá si el id que hemos introducido existe en la
-				// columna de los id. getint(1) el 1 se refiere a la columna 1 que coindice con
-				// los id
-				if (escribeId == rs.getInt(1)) {
-					System.out.println("El id existe en la tabla");
-					// indicamos al boolean que sea correcto para que se salga del bucle
-					correcto = true;
-					// Guardamos el id como entero para que nos lo devuelva luego
-					escribeId = rs.getInt(1);
-
+			System.out.println("\n\tIntroduzca ID del fabricante ('-1' - ver listado, '0' - salir): ");
+			id = Utils.getIntConsola(-1);
+			if (id == -1) {
+				listado(false);
+			}
+			else {
+				if (id != 0) {
+					fab = ControladorFabricante.get(id);
+					if (fab == null) {
+						System.out.println("\tError. Ha especificado un ID inválido.");
+					}
 				}
 			}
-
-			// Mientras que el boolean no sea correcto, se ejecutará el do
-		} while (!correcto);
-
-		rs.close();
-		s.close();
-		// Nos devueve el id
-		return escribeId;
-
+		} while (fab == null && id != 0);
+		return fab;
 	}
-
 }
