@@ -135,19 +135,29 @@ public class GestionVenta {
 		
 		public static void modificar() throws ErrorBBDDException, SQLException, ParseException {
 			System.out.println("\n\tModificación del coche: ");
-			
+			Scanner sc = new Scanner(System.in);
 			Venta vent = seleccionPorUsuario();
 			
 			if(vent != null) {
 				
+				System.out.println("\n\tPulsa S para ver la lista de clientes");
+				String str = sc.next();
+				if (str.equalsIgnoreCase("S")) {
+					GestonCliente.listado(true);
+				}
+				
 				System.out.println("\n\tIntroduce un 'idCliente' nuevo para la venta: ");
-				Scanner sc = new Scanner(System.in);
-				String str;
+				sc = new Scanner(System.in);
 				str = sc.next();
 				int idCliente = Integer.parseInt(str);
 				if(!str.equals("")) 
 					vent.setIdCliente(idCliente);
 				
+				System.out.println("\n\tPulsa S para ver la lista de concesionarios");
+				str = sc.next();
+				if (str.equalsIgnoreCase("S")) {
+					GestionConcesionario.listado(true);
+				}
 				
 				System.out.println("\n\tIntroduce un 'idConcesionario' nuevo para la venta: ");
 				sc = new Scanner(System.in);
@@ -155,6 +165,12 @@ public class GestionVenta {
 				int idConcesionario = Integer.parseInt(str);
 				if(!str.equals("")) 
 					vent.setIdConcesionario(idConcesionario);
+				
+				System.out.println("\n\tPulsa S para ver la lista de coches");
+				str = sc.next();
+				if (str.equalsIgnoreCase("S")) {
+					GestionCoche.listado(true);
+				}
 				
 				System.out.println("\n\tIntroduce un 'idCoche' nuevo para la venta ");
 				str = sc.next();
