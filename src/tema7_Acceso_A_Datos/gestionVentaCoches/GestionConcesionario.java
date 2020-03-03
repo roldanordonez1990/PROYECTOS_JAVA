@@ -69,7 +69,7 @@ public class GestionConcesionario {
 	 * 
 	 */
 
-	private static void listado(boolean pausafinal) throws ErrorBBDDException {
+	public static void listado(boolean pausafinal) throws ErrorBBDDException {
 		List<Concesionario> concesionarios = ControladorConcesionario.getAll();
 		System.out.println("\n\tListado de concesionarios: \n");
 		for (Concesionario conce : concesionarios) {

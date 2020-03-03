@@ -62,7 +62,7 @@ public class GestionCoche {
 	 * 
 	 */
 
-	private static void listado(boolean pausafinal) throws ErrorBBDDException {
+	public static void listado(boolean pausafinal) throws ErrorBBDDException {
 		List<Coche> coches = ControladorCoche.getAll();
 		System.out.println("\n\tListado de coches: \n");
 		for (Coche coche : coches) {
@@ -93,11 +93,11 @@ public class GestionCoche {
 		System.out.print("\nIntroduzca 'idfabricante' del fabricante: ");
 		coche.setIdfabricante(sc.nextInt());
 		System.out.print("\nIntroduzca 'bastidor' del coche: ");
-		coche.setBastidor(sc.next());
+		coche.setBastidor(sc.nextLine());
 		System.out.print("\nIntroduzca 'modelo' del coche: ");
-		coche.setModelo(sc.next());
+		coche.setModelo(sc.nextLine());
 		System.out.print("\nIntroduzca 'color' del coche: ");
-		coche.setColor(sc.next());
+		coche.setColor(sc.nextLine());
 
 		ControladorCoche.almacenarNuevo(coche);
 
@@ -128,19 +128,19 @@ public class GestionCoche {
 			System.out.println("\n\tIntroduce un bastidor nuevo para el coche: ");
 			sc = new Scanner(System.in);
 			String bastidor;
-			bastidor = sc.next();
+			bastidor = sc.nextLine();
 			if(!bastidor.equals("")) 
 				coche.setBastidor(bastidor);
 			
 			System.out.println("\n\tIntroduce un Modelo nuevo para el coche: ");
 			String modelo;
-			modelo = sc.next();
+			modelo = sc.nextLine();
 			if(!modelo.equals("")) 
 				coche.setModelo(modelo);
 			
 			System.out.println("\n\tIntroduce un Color nuevo para el coche: ");
 			String color;
-			color = sc.next();
+			color = sc.nextLine();
 			if(!color.equals("")) {
 				coche.setColor(color);
 			}

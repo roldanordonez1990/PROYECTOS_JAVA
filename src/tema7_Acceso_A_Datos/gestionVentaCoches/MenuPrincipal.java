@@ -28,7 +28,7 @@ public class MenuPrincipal {
 			System.out.println("\t2.- Gestión de concesionarios.");
 			System.out.println("\t3.- Gestión de coches.");
 			System.out.println("\t4.- Gestión de clientes.");
-			System.out.println("\t5.- Gestión de .");
+			System.out.println("\t5.- Gestión de ventas.");
 			System.out.println("\t0.- Salir");
 			System.out.println("\n\tElija una opción: ");
 			
@@ -50,9 +50,16 @@ public class MenuPrincipal {
 				
 			case 3:
 				GestionCoche.menuGestionCoche();
+				break;
 				
 			case 4:
 				GestonCliente.menuGestionCliente();
+				break;
+				
+			case 5:
+				GestionVenta.menuGestionVenta();
+				break;
+				
 			}
 			
 				

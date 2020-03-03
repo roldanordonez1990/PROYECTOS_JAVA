@@ -65,7 +65,7 @@ public class GestonCliente {
 		 * 
 		 */
 		
-		private static void listado(boolean pausafinal) throws ErrorBBDDException, ParseException {
+		public static void listado(boolean pausafinal) throws ErrorBBDDException, ParseException {
 			List<Cliente> cli = ControladorCliente.getAll();
 			System.out.println("\n\tListado de clientes: \n");
 			for (Cliente cliente : cli) {
