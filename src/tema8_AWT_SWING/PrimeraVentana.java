@@ -72,7 +72,7 @@ public class PrimeraVentana extends JFrame {
 		panel.add(pnlLocal);
 		
 		//Botón
-		JButton bt = new JButton();
+		JButton bt = new JButton("Botón");
 		
 		bt.addActionListener(new ActionListener() {
 			
